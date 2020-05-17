@@ -1,0 +1,14 @@
+<mat-card class="task m-bottom-5" >
+  <mat-card-title>{{task.name}}
+    <button
+      mat-icon-button color="primary"
+      aria-label="delete icon"
+      (click)="deleteTask(task.id)"
+      matTooltip="click to delete task"
+    >
+      <mat-icon>delete</mat-icon>
+    </button>
+  </mat-card-title>
+  <mat-card-content>{{task.description}}</mat-card-content>
+
+</mat-card>

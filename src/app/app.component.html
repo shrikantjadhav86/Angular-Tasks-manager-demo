@@ -1,0 +1,28 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span class="m-right-10">Tasks manager </span>
+    <button
+      mat-raised-button
+      color="basic"
+      (click)="showAddTaskList()"
+      class="m-right-10"
+      matTooltip="click to add task list"
+    >Add Task List</button>
+    <span><strong>(drag task to move to another task list)</strong></span>
+  </mat-toolbar-row>
+</mat-toolbar>
+<main>
+  <mat-spinner *ngIf="!isDataLoaded" ></mat-spinner>
+  <div cdkDropListGroup *ngIf="isDataLoaded" class="task_list_container">
+    <ng-container *ngIf="taskLists.length else noData" >
+      <app-task-list
+        *ngFor="let taskList of taskLists"
+        [taskList]=taskList
+        (onDeleteList)="deleteTaskList(taskList.id)"
+        [id]="taskList.id"
+       >
+      </app-task-list>
+    </ng-container>
+    <ng-template #noData > No Task list found</ng-template>
+  </div>
+</main>

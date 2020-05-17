@@ -1,0 +1,38 @@
+/* You can add global styles to this file, and also import other style files */
+
+$spaces: 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 75, 100
+$sides: top, bottom, left, right
+
+@each $space in $spaces
+  @each $side in $sides
+    .m-#{$side}-#{$space}
+      margin-#{$side}: #{$space}px !important
+
+
+    .p-#{$side}-#{$space}
+      padding-#{$side}: #{$space}px !important
+
+@each $space in $spaces
+  .m-#{$space}
+    margin: #{$space}px !important
+
+
+  .p-#{$space}
+    padding: #{$space}px !important
+
+input
+  .ng-invald
+    border-color: red
+    color: red
+
+.blank-space
+  flex: 1 1 auto
+
+.mat-spinner
+  margin: auto
+
+.mat-card-title
+  font-size: 14px
+
+.mat-card-content
+  font-size: 12px

@@ -1,0 +1,40 @@
+<div class=" m-10 p-5" >
+  <div class="list-header">
+    <h2 class="m-10">{{taskList.name}}</h2>
+    <span>
+      <button
+        mat-icon-button color= "primary"
+        aria-label="Add Icon"
+        (click) ="showAddTask()"
+        class="add p-right-5"
+        matTooltip="click to add task"
+      >
+        <mat-icon>add</mat-icon>
+      </button>
+      <button
+        mat-icon-button color="primary"
+        aria-label="delete icon"
+        (click)="deleteList(taskList.id)"
+        class="delete"
+        matTooltip="click to delete task"
+      >
+        <mat-icon>delete</mat-icon>
+      </button>
+    </span>
+  </div>
+  <mat-spinner *ngIf="!isDataLoaded"></mat-spinner>
+  <div *ngIf="isDataLoaded"
+    cdkDropList
+    #{{taskList.id}}="cdkDropList"
+    class="task-list"
+    [cdkDropListData]="tasks"
+    (cdkDropListDropped)="drop($event, taskList.id)">
+    <ng-container *ngIf="tasks else noData">
+      <div class="task-box" *ngFor="let task of tasks" cdkDrag>
+        <app-task [task]="task" (onDeleteTasks)="deleteTask(task.id)"></app-task>
+      </div>
+    </ng-container>
+  </div>
+  <ng-template #noData> No tasks added </ng-template>
+
+</div>

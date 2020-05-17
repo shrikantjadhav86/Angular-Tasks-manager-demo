@@ -1,0 +1,19 @@
+<h1 mat-dialog-title>Add Task List</h1>
+<form #addTaskListForm="ngForm" (submit)="addTaskList(addTaskListForm)">
+  <mat-form-field appearance="fill">
+    <mat-label>Task List Name</mat-label>
+    <input matInput name="name" [(ngModel)]="name" required>
+  </mat-form-field>
+  <br>
+  <mat-form-field appearance="fill">
+    <mat-label>Task Description</mat-label>
+    <input matInput name="description" [(ngModel)]="description">
+  </mat-form-field>
+  <br>
+  <button mat-raised-button color="primary" type="submit" [disabled]="!addTaskListForm.form.valid">
+    Save
+  </button>
+  <button mat-raised-button color="basic" type="button" class="m-left-5" (click)="onCancel()">
+    cancel
+  </button>
+</form>
