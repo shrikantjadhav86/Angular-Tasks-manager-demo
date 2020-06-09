@@ -29,7 +29,6 @@ export class TaskListComponent implements OnInit {
     this.taskService.getTasks(this.taskList.id).subscribe(
       data => {
         this.tasks = data;
-        console.log(data);
         this.isDataLoaded = true;
       }, error => {
         this.showSnackBar("error while loading takss "+error);
@@ -44,7 +43,6 @@ export class TaskListComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
       if(result)
         result.subscribe( data => {
           this.showSnackBar("Task added successfully...");
@@ -85,8 +83,6 @@ export class TaskListComponent implements OnInit {
 
 
   drop(event: CdkDragDrop<string[]>, taskListId: number) {
-    console.log(taskListId );
-    console.log(event.container.data);
     if (event.previousContainer === event.container) {
       moveItemInArray(this.tasks, event.previousIndex, event.currentIndex);
     } else {

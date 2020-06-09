@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule }   from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
+import { ReactiveFormsModule }          from '@angular/forms';
 
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatMenuModule} from '@angular/material/menu';
@@ -15,7 +16,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatTooltipModule} from '@angular/material/tooltip';
-
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -25,6 +26,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TaskListService } from './services/task-list.service';
 import { DialogTaskListFormComponent } from './shared/dialog-task-list-form/dialog-task-list-form.component';
 import { DialogTaskFormComponent } from './shared/dialog-task-form/dialog-task-form.component';
+import { TasksService } from './services/tasks.service';
+import { CustomValidations } from './shared/validators/custom-validation';
+
 
 @NgModule({
   declarations: [
@@ -40,6 +44,7 @@ import { DialogTaskFormComponent } from './shared/dialog-task-form/dialog-task-f
     BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     MatToolbarModule,
     MatMenuModule,
     MatCardModule,
@@ -51,9 +56,10 @@ import { DialogTaskFormComponent } from './shared/dialog-task-form/dialog-task-f
     MatIconModule,
     MatSnackBarModule,
     MatProgressSpinnerModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatSlideToggleModule
   ],
-  providers: [TaskListService],
+  providers: [TaskListService, TasksService, CustomValidations],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

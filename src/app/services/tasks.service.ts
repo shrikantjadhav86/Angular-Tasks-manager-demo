@@ -3,7 +3,7 @@ import { TaskModel } from './task.model';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { retry, map, catchError } from 'rxjs/operators';
-import { throwError } from 'rxjs';
+import { throwError, BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,12 +12,10 @@ export class TasksService {
   tasks :TaskModel[];
 
   constructor(private httpClient: HttpClient ) {
-
   }
 
   addTask(name: string, description: string, taskListId) {
     let data = {name, description, taskListId};
-    console.log(data);
     return this.httpClient.post<TaskModel>(environment.apiUrl+'tasks', data ).pipe(
       retry(1),
       map(data => data ),
@@ -49,6 +47,15 @@ export class TasksService {
 
   deleteTask(taskId) {
     return this.httpClient.delete(environment.apiUrl+'tasks/'+taskId)
+    .pipe(
+      retry(1),
+      map(data => data),
+      catchError( err => this.handleError(err))
+    );
+  }
+
+  findTaskListByFieldValue(field: string, value: string) {
+    return this.httpClient.get<TaskModel[]>(`${environment.apiUrl}tasks?${field}=${value}`)
     .pipe(
       retry(1),
       map(data => data),

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { TaskListModel } from './taskList.model';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import { throwError } from 'rxjs';
 import { map, retry, catchError,  } from "rxjs/operators";
 import { __values } from 'tslib';
@@ -26,7 +26,7 @@ export class TaskListService {
   }
 
   getTaskList() {
-    return this.httpClient.get<TaskListModel[]>(environment.apiUrl+'taskList')
+    return this.httpClient.get<TaskListModel[]>(environment.apiUrl+'taskList?_sort=order')
     .pipe(
       retry(1),
       map(data => data),
@@ -35,6 +35,25 @@ export class TaskListService {
   }
   deleteTaskList(taskListId) {
     return this.httpClient.delete(environment.apiUrl+'taskList/'+taskListId)
+    .pipe(
+      retry(1),
+      map(data => data),
+      catchError( err => this.handleError(err))
+    );
+  }
+
+  findTaskListByFieldValue(field: string, value: string) {
+    return this.httpClient.get<TaskListModel[]>(`${environment.apiUrl}taskList?${field}=${value}`)
+    .pipe(
+      retry(1),
+      map(data => data),
+      catchError( err => this.handleError(err))
+    );
+  }
+
+  updateTaskList(taskListId, data) {
+    console.log(taskListId, data);
+    return this.httpClient.put<TaskListModel>(`${environment.apiUrl}taskList/${taskListId}`, JSON.stringify(data))
     .pipe(
       retry(1),
       map(data => data),

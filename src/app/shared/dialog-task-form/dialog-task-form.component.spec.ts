@@ -22,4 +22,8 @@ describe('DialogTaskFormComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  it('should called', () => {
+    expect(component.ngOnInit).toHaveBeenCalledTimes(1)
+  });
+
 });

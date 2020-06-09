@@ -9,20 +9,33 @@
       matTooltip="click to add task list"
     >Add Task List</button>
     <span><strong>(drag task to move to another task list)</strong></span>
+    <div class="theme-switch">
+      <mat-icon
+        aria-hidden="false"
+        aria-label="Chang theme"
+        color="accent"
+        (click)="changeTheme()"
+      >
+        format_color_fill
+      </mat-icon>
+    </div>
   </mat-toolbar-row>
 </mat-toolbar>
-<main>
+<main cdkDropList (cdkDropListDropped)="dropList($event)" cdkDropListOrientation="horizontal">
   <mat-spinner *ngIf="!isDataLoaded" ></mat-spinner>
-  <div cdkDropListGroup *ngIf="isDataLoaded" class="task_list_container">
+  <div cdkDropListGroup *ngIf="isDataLoaded" class="task_list_container" >
     <ng-container *ngIf="taskLists.length else noData" >
-      <app-task-list
+      <app-task-list cdkDrag
         *ngFor="let taskList of taskLists"
         [taskList]=taskList
         (onDeleteList)="deleteTaskList(taskList.id)"
         [id]="taskList.id"
-       >
+        >
       </app-task-list>
+      <div class="placeholder" *cdkDragPlaceholder></div>
     </ng-container>
     <ng-template #noData > No Task list found</ng-template>
   </div>
+
+
 </main>
